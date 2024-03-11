@@ -53,6 +53,10 @@ export const todoSlice = createSlice({
 			const todo = state.todos.find(todo => todo.id === todoId)
 			if (todo) {
 				todo.completed = !todo.completed
+				state.todos = [
+					...state.todos.filter(todo => !todo.completed), // 先加入未完成的todos
+					...state.todos.filter(todo => todo.completed) // 然后加入已完成的todos
+				]
 			}
 		},
 		removeTodo: (state, action: PayloadAction<number>) => {
